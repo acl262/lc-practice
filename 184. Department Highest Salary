@@ -1,0 +1,14 @@
+/* Write your PL/SQL query statement below */
+select d.name Department, Employee.Name Employee, Employee.Salary Salary
+from Department d, Employee,
+
+(
+select max(Salary) Salary, DepartmentId 
+from Employee 
+group by DepartmentId) tmp
+
+where Employee.Salary = tmp.Salary 
+and 
+Employee.DepartmentId = tmp.DepartmentId 
+and 
+Employee.DepartmentId = d.Id
