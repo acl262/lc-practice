@@ -4,8 +4,7 @@ BEGIN
   RETURN (   
     select IFNULL(
         (
-        select distinct salary 
-
+        select distinct salary
         from Employee
         order by salary desc limit N, 1)
         , null) 
