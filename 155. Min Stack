@@ -1,0 +1,44 @@
+class MinStack {
+    
+    private Deque<Integer> deque1;
+    private Deque<Integer> deque2;
+    
+    /** initialize your data structure here. */
+    public MinStack() {
+        deque1 = new LinkedList<>();
+        deque2 = new LinkedList<>();
+    }
+    
+    public void push(int x) {
+        deque1.push(x);
+        if (deque2.isEmpty()) {
+            deque2.push(x);
+        }
+        else {
+            int min = Math.min(deque2.peek(), x);
+            deque2.push(min);
+        }
+    }
+    
+    public void pop() {
+        deque1.pop();
+        deque2.pop();
+    }
+    
+    public int top() {
+        return deque1.peek();
+    }
+    
+    public int getMin() {
+        return deque2.peek();
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
