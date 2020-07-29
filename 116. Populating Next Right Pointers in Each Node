@@ -1,0 +1,45 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        
+        if not root:
+            return None
+        nodeQueue = collections.deque([root])
+         # Queue<Node> nodeQueue = new LinkedList<>();
+        # nodeQueue.append(root)
+        prev = None
+        # while len(nodeQueue) != 0:
+        while nodeQueue:
+            for _ in range(len(nodeQueue)):
+                cur = nodeQueue.popleft()
+                # global prev
+                if prev:
+                    prev.next = cur
+                prev= cur
+                
+            # level = nodeQueue
+            # for i in range(len(level)):
+            #     if i < len(level):
+            #         level[i].next = level[i+1]
+            # for cur, nxt in zip (level, level [1:] ):
+            #     cur.next = nxt
+            # level[-1].next = None
+            # nodeQueue[0]
+            # cur = nodeQueue.pop(0)
+            #level.append(cur)
+                if cur.left:
+                    nodeQueue.append(cur.left)
+
+                if cur.right:
+                    nodeQueue.append(cur.right)
+            prev = None
+        return root
