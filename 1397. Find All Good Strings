@@ -1,0 +1,43 @@
+private int solution(int n, String s1, String s2, String evil){
+        int[] kmp = getKMP(evil);
+        //for(int i: kmp) System.out.print(i+" ");
+        return dfs(0, 0, true, true,
+                  s1, s2, evil, kmp, new Integer[n+1][evil.length()+1][2][2] );
+        
+    }
+    
+    private int dfs(int iS, int iEvil, boolean limitL, boolean limitH,
+                   String s1, String s2, String evil, int[] kmp, Integer[][][][] dp){
+        if(iEvil == evil.length()) return 0;
+        if(iS == s1.length()) return 1;
+        if(dp[iS][iEvil][limitL?1:0][limitH?1:0]!=null) return dp[iS][iEvil][limitL?1:0][limitH?1:0];
+        char l = limitL? s1.charAt(iS):'a';
+        char h = limitH? s2.charAt(iS):'z';
+        int res = 0;
+        for(char c = l; c<=h;c++){
+            int el = iEvil;
+            while(el>0 && evil.charAt(el)!=c) el = kmp[el-1];
+            if(evil.charAt(el)==c) el++;
+            res += dfs(iS+1, el, limitL&c==l, limitH&c==h,
+                      s1, s2, evil, kmp, dp
+                      );
+            res = res%1_000_000_007;
+        }
+        dp[iS][iEvil][limitL?1:0][limitH?1:0]= res;
+        return res;
+    }
+    
+    private int[] getKMP(String evil){
+        int n = evil.length();
+        int[] arr= new int[n];
+        for(int i = 1, j = 0;i<n;i++){
+            while(j>0 && evil.charAt(i)!=evil.charAt(j)) j = arr[j-1];
+            if(evil.charAt(i)==evil.charAt(j)){
+                j++;
+                arr[i] = j;
+            }else{
+                arr[i] = 0;
+            }
+        }
+        return arr;
+    }
