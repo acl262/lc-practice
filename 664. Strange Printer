@@ -1,0 +1,50 @@
+class Solution {
+  public int strangePrinter(String s) {
+    if (s == null || s.length() == 0) {
+      return 0;
+    }
+    int len = s.length();
+    int[][] dp = new int[len][len];
+    for (int i = 0; i < len; i++) {
+      dp[i][i] = 1;
+    }
+    for (int j = 1; j < len; j++) {
+      for (int i = 0; i + j < len; i++) {
+        dp[i][i + j] = j + 1;
+        for (int k = i; k < i + j; k++) {
+          int res = dp[i][k] + dp[k + 1][i + j];
+          if (s.charAt(k) == s.charAt(i + j)) {
+            res--;
+          }
+          dp[i][i + j] = Math.min(dp[i][i + j], res);
+        }
+      }
+    }
+    return dp[0][len - 1];
+  }
+}
+
+//tbgtgb
+//tttttt
+//tbbttt
+//tbbtgg
+//tbgtgb
+//abac
+//aaaa 1
+//abaa 2
+//abac 3
+
+//abacc
+//aaaaa 1
+//abaaa 2
+//abacc 3
+//ababab
+//aaaaaa 1
+//abaaaa 2
+//ababaa 3
+//ababab 4
+
+//abab
+//aaaa 1
+//abaa 2
+//abab 3
