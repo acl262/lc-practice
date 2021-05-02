@@ -54,9 +54,10 @@ class MyLinkedList {
         if(index < 0 || index > size) {
             return;
         }
-        if (index == size) { 
+        if (index == size && curTail != null) { 
             curTail.next = new Node (val);
             curTail = curTail.next;   
+            size++;
             return;
         }
         Node first = dummyHead;
@@ -84,17 +85,6 @@ class MyLinkedList {
             del.next = del.next.next;
         }
         size--;
-        // if(index < 0 || index >= size) {
-        //     return;
-        // }
-        // Node del = dummyHead.next;
-        // for(int i= 0; i < index; i++) {
-        //     del = del.next;
-        // }
-        // if(del.next != null) {
-        //     del.next = del.next.next;
-        // }  
-        // size--;
     }
 
 }
