@@ -1,4 +1,5 @@
 /**
+ * don't forget to return pre instead of cur b/c cur will alway be null before returning.
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
@@ -8,6 +9,7 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
     public ListNode reverseList(ListNode head) {
         ListNode cur = head;
