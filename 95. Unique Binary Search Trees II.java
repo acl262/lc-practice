@@ -36,9 +36,9 @@ class Solution {
         }
         
         for(int i = start; i <= end; i++) {
-            
             List<TreeNode> leftTree = dfs(start, i-1);           
             List<TreeNode> rightTree = dfs(i+1, end);
+            
             for(TreeNode left : leftTree) {
                 for(TreeNode right : rightTree) {
                     TreeNode root = new TreeNode(i);
